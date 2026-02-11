@@ -109,7 +109,8 @@ def main():
     feature_info = load_feature_info()
     feature_names = feature_info["features"]
     target_column = feature_info["target"]
-    class_names = feature_info.get("classes")
+    class_names_raw = feature_info.get("classes")
+    class_names = [str(c) for c in class_names_raw] if class_names_raw else None
     le = load_label_encoder()
 
     st.markdown(
@@ -158,9 +159,9 @@ Upload a CSV for predictions (max **5 MB**). If the CSV includes the target colu
     show_pct = st.checkbox("Show percentages in cells", value=True, key="show_pct")
     test_data = load_test_data()
     x_test = test_data[feature_names]
-    y_test = test_data[target_column]
+    y_test = test_data[target_column].astype(str)
     pred_enc = model.predict(x_test)
-    y_pred = le.inverse_transform(pred_enc)
+    y_pred = le.inverse_transform(pred_enc).astype(str)
     render_confusion_matrix(y_test, y_pred, class_names=class_names, show_percent=show_pct)
 
     st.subheader("Classification Report (Test Set)")
@@ -198,14 +199,14 @@ Upload a CSV for predictions (max **5 MB**). If the CSV includes the target colu
 
         x_upload = uploaded_df[feature_names]
         y_upload = (
-            uploaded_df[target_column]
+            uploaded_df[target_column].astype(str)
             if target_column in uploaded_df.columns
             else None
         )
 
         try:
             preds_enc = model.predict(x_upload)
-            preds = le.inverse_transform(preds_enc)
+            preds = le.inverse_transform(preds_enc).astype(str)
         except Exception as e:
             st.error(f"Prediction failed: {e}. Check that columns match the training data.")
             return
