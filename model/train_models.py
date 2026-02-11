@@ -110,7 +110,10 @@ def make_models(preprocessor):
                 (
                     "model",
                     RandomForestClassifier(
-                        n_estimators=300, random_state=RANDOM_STATE
+                        n_estimators=100,
+                        max_depth=12,
+                        min_samples_leaf=5,
+                        random_state=RANDOM_STATE,
                     ),
                 ),
             ]
