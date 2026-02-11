@@ -6,12 +6,13 @@ interactive Streamlit app that compares model performance and supports CSV
 uploads for predictions and evaluation.
 
 ## Dataset Description
-**Dataset:** Breast Cancer Wisconsin (Diagnostic) Dataset (UCI)
+**Dataset:** Bank Marketing (UCI Machine Learning Repository)
 
 - **Type:** Binary classification
-- **Instances:** 569
-- **Features:** 30 numeric features
-- **Target:** `target` (0 = malignant, 1 = benign)
+- **Instances:** 45,211
+- **Features:** 16 (V1–V16: age, job, marital, education, default, balance, housing, loan, contact, day, month, duration, campaign, pdays, previous, poutcome)
+- **Target:** `y` – whether client subscribed to a term deposit (yes/no)
+
 
 ## Models Used
 - Logistic Regression
@@ -25,40 +26,28 @@ uploads for predictions and evaluation.
 
 | ML Model Name | Accuracy | AUC | Precision | Recall | F1 Score | MCC |
 | --- | --- | --- | --- | --- | --- | --- |
-| Logistic Regression | 0.9825 | 0.9954 | 0.9861 | 0.9861 | 0.9861 | 0.9623 |
-| Decision Tree | 0.9123 | 0.9157 | 0.9559 | 0.9028 | 0.9286 | 0.8174 |
-| KNN | 0.9561 | 0.9788 | 0.9589 | 0.9722 | 0.9655 | 0.9054 |
-| Naive Bayes | 0.9386 | 0.9878 | 0.9452 | 0.9583 | 0.9517 | 0.8676 |
-| Random Forest (Ensemble) | 0.9474 | 0.9937 | 0.9583 | 0.9583 | 0.9583 | 0.8869 |
-| XGBoost (Ensemble) | 0.9561 | 0.9950 | 0.9467 | 0.9861 | 0.9660 | 0.9058 |
+| Logistic Regression | 0.9012 | 0.9056 | 0.6445 | 0.3478 | 0.4518 | 0.4261 |
+| Decision Tree | 0.8746 | 0.7015 | 0.4649 | 0.4754 | 0.4701 | 0.3990 |
+| KNN | 0.8962 | 0.8277 | 0.5990 | 0.3403 | 0.4340 | 0.4001 |
+| Naive Bayes | 0.8548 | 0.8101 | 0.4059 | 0.5198 | 0.4559 | 0.3774 |
+| Random Forest (Ensemble) | 0.9073 | 0.9291 | 0.6698 | 0.4102 | 0.5088 | 0.4778 |
+| XGBoost (Ensemble) | 0.9092 | 0.9340 | 0.6671 | 0.4471 | 0.5354 | 0.4992 |
 
 ### Model Performance Observations
 
 | ML Model Name | Observation about Model Performance |
 | --- | --- |
-| Logistic Regression | Best overall accuracy and strong balanced metrics on this dataset. |
-| Decision Tree | Lower recall and MCC, indicating weaker generalization than other models. |
-| KNN | Strong recall and F1, performs well after scaling. |
-| Naive Bayes | Solid AUC but lower overall accuracy than top models. |
-| Random Forest (Ensemble) | High AUC and stable metrics with good balance. |
-| XGBoost (Ensemble) | High recall and competitive accuracy, strong ensemble performance. |
+| Logistic Regression | Good accuracy and AUC; moderate precision/recall balance. |
+| Decision Tree | Lower AUC; prone to overfitting on imbalanced data. |
+| KNN | Decent accuracy; recall limited on minority class. |
+| Naive Bayes | Lower accuracy; Gaussian assumption may not fit all features well. |
+| Random Forest (Ensemble) | Strong AUC; handles imbalance better; good overall metrics. |
+| XGBoost (Ensemble) | Best F1 and MCC; best balance for imbalanced classification. |
 
 ## Streamlit App Features
-- Dataset upload option (CSV)
+- Dataset upload option 
 - Model selection dropdown
 - Display of evaluation metrics
-- Confusion matrix and classification report
+- Enhanced confusion matrix (class labels, counts, percentages)
+- Classification report
 
-## How to Run Locally
-1. Install dependencies:
-   ```
-   pip install -r requirements.txt
-   ```
-2. Train and save models:
-   ```
-   python model/train_models.py
-   ```
-3. Start the Streamlit app:
-   ```
-   streamlit run app.py
-   ```
