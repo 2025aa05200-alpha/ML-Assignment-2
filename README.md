@@ -56,5 +56,5 @@ Ensemble methods (Random Forest and XGBoost) achieve the highest AUC and stronge
 - Sample dataset download
 - Model selection dropdown
 - Display of evaluation metrics
-- Enhanced confusion matrix (class labels, counts, percentages)
+- Confusion matrix (class labels, counts, percentages)
 - Classification report
