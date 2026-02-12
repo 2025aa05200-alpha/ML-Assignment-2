@@ -101,9 +101,9 @@ def render_classification_report(y_true, y_pred):
 
 
 def main():
-    st.set_page_config(page_title="ML Assignment 2 - Bank Marketing", layout="wide")
-    st.title("ML Assignment 2 - Classification Models")
-    st.caption("Bank Marketing Dataset (UCI) | Predict term deposit subscription (yes/no)")
+    st.set_page_config(page_title="Bank Marketing – Term Deposit Prediction", layout="wide")
+    st.title("Bank Marketing: Term Deposit Subscription Predictor")
+    st.caption("UCI Dataset | Predict whether a client will subscribe to a term deposit (yes/no)")
 
     metrics = load_metrics()
     feature_info = load_feature_info()
@@ -169,6 +169,13 @@ Upload a CSV for predictions (max **5 MB**). If the CSV includes the target colu
 
     st.divider()
     st.subheader("Upload Dataset for Evaluation (CSV)")
+    csv_bytes = test_data.to_csv(index=False).encode("utf-8")
+    st.download_button(
+        label="Download sample dataset",
+        data=csv_bytes,
+        file_name="test_data.csv",
+        mime="text/csv",
+    )
     st.info(
         f"Upload a CSV with the same {len(feature_names)} feature columns ({', '.join(feature_names[:5])}...). Keep file under 5 MB."
     )
